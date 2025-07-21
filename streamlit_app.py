@@ -9,9 +9,10 @@ from datetime import datetime
 import json
 from streamlit_webrtc import webrtc_streamer, AudioProcessorBase, WebRtcMode
 import av
+import io
 
 st.set_page_config(layout="wide")
-st.title("🔮 PCG Analyzer with History + Patient Info")
+st.title("🩺 PCG Analyzer with History + Patient Info")
 
 # Directories
 UPLOAD_FOLDER = "uploaded_audios"
@@ -74,6 +75,12 @@ def analyze_audio(path, unique_id):
     st.pyplot(fig)
 
     st.audio(path, format="audio/wav")
+
+    # ✅ Denoised audio playback option
+    if st.checkbox("🔉 Play Denoised Audio", key=f"denoise_{unique_id}"):
+        denoised_audio_io = io.BytesIO()
+        wav.write(denoised_audio_io, sr, filtered_audio.astype(np.int16))
+        st.audio(denoised_audio_io, format='audio/wav')
 
 # Sidebar: Upload and Recording
 st.sidebar.header("📁 Upload or Record")
