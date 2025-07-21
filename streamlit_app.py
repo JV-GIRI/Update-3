@@ -7,7 +7,7 @@ import soundfile as sf
 from scipy.signal import butter, lfilter
 from datetime import datetime
 import json
-from streamlit_webrtc import webrtc_streamer, AudioProcessorBase
+from streamlit_webrtc import webrtc_streamer, AudioProcessorBase, WebRtcMode
 import av
 
 st.set_page_config(layout="wide")
@@ -90,7 +90,8 @@ class AudioProcessor(AudioProcessorBase):
 
 rec_path = None
 ctx = webrtc_streamer(
-    key="record", mode="sendonly",
+    key="record",
+    mode=WebRtcMode.SENDONLY,  # ✅ FIXED
     audio_receiver_size=1024,
     media_stream_constraints={"video": False, "audio": True},
     audio_processor_factory=AudioProcessor,
