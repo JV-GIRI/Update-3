@@ -11,7 +11,7 @@ from streamlit_webrtc import webrtc_streamer, AudioProcessorBase, WebRtcMode
 import av
 
 st.set_page_config(layout="wide")
-st.title("🩺 PCG Analyzer with History + Patient Info")
+st.title("🔮 PCG Analyzer with History + Patient Info")
 
 # Directories
 UPLOAD_FOLDER = "uploaded_audios"
